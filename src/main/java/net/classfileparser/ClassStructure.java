@@ -3,12 +3,15 @@ package net.classfileparser;
 import net.classfileparser.buffer.BigEndianReader;
 import net.classfileparser.pool.*;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 class ClassStructure {
     public static final String INVALID_UTF_8_ITEM_IN_POOL = "INVALID_UTF8_ITEM_IN_POOL";
+    public static final Charset UTF_8 = Charset.forName(StandardCharsets.UTF_8.name());
     private int magic;
     private short minor_version;
     private short major_version;
@@ -77,7 +80,7 @@ class ClassStructure {
                 }
                 case CONSTANT_Utf8: {
                     short length = reader.readShort();
-                    this.constant_pool.put(i, new Utf8PoolItem(i, type, new String(reader.readByteArr(length))));
+                    this.constant_pool.put(i, new Utf8PoolItem(i, type, new String(reader.readByteArr(length), UTF_8)));
                     break;
                 }
                 case CONSTANT_MethodHandle: {
