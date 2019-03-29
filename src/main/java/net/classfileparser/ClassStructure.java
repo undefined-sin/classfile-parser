@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-class ClassStructure {
+public class ClassStructure {
     public static final String INVALID_UTF_8_ITEM_IN_POOL = "INVALID_UTF8_ITEM_IN_POOL";
     public static final Charset UTF_8 = Charset.forName(StandardCharsets.UTF_8.name());
     private int magic;
@@ -137,8 +137,8 @@ class ClassStructure {
             short access_flags = reader.readShort();
             short name_index = reader.readShort();
             short descriptor_index = reader.readShort();
-            ClassMemberRef ref = new ClassMemberRef(access_flags, name_index, descriptor_index);
             short attributes_count = reader.readShort();
+            ClassMemberRef ref = new ClassMemberRef(access_flags, name_index, descriptor_index);
             ref.setNumberOfAttributes(attributes_count);
             for (int j = 0; j < attributes_count; j++) {
                 short attribute_name_index = reader.readShort();
